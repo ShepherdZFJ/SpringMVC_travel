@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class FavoriteServiceImpl implements IFavoriteService {
@@ -36,5 +37,10 @@ public class FavoriteServiceImpl implements IFavoriteService {
         route.setCount(route.getCount()+1);
         routeService.updateRouteCount(route);
         return true;
+    }
+
+    @Override
+    public List<Favorite> findAll(Integer uid) {
+        return favoriteDao.findAllByUid(uid);
     }
 }
