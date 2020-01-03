@@ -1,0 +1,2 @@
+# SpringMVC_travel
+这是一个基于SpringMVC,SpringData-JPA,SpringBoot实现的旅游网项目
