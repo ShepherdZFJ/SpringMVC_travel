@@ -31,6 +31,7 @@
        });
 
 
+
        //查询分类数据
         $.get("/category/findAll",{},function (data) {
             //[{cid:1,cname:国内游},{},{}]
@@ -76,6 +77,19 @@
         });
 
     });
+    function fun() {
+        $.get("/user/findOne",{},function (flag) {
+            if(flag) {
+                //用户已经登录
+                location.href="http://localhost:8080/favorite/getMyFavorite";
+            }else{
+            //用户没有登录
+            alert("您尚未登录，请登录");
+            location.href="http://localhost:8080/user/getLoginList";
+        }
+        });
+
+    };
 
 </script>
 
@@ -93,7 +107,7 @@
             <div class="login"  >
             	
                 <span id="span_username"></span>
-                <a href="/favorite/getMyFavorite" class="collection">我的收藏</a>
+                <a onclick="fun()" class="collection" style="cursor:pointer">我的收藏</a>
                 <a href="javascript:location.href='/user/exit';">退出</a>
             </div>
         </div>
