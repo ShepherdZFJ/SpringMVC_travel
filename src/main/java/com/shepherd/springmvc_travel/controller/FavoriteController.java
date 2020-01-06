@@ -5,6 +5,7 @@ import com.shepherd.springmvc_travel.domain.PageBean;
 import com.shepherd.springmvc_travel.domain.User;
 import com.shepherd.springmvc_travel.service.IFavoriteService;
 import com.shepherd.springmvc_travel.service.IRouteService;
+import com.shepherd.springmvc_travel.util.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/favorite")
@@ -40,15 +42,22 @@ public class FavoriteController {
 
     @RequestMapping("/getFavoriteRankInfo")
     @ResponseBody
-    public PageBean getFavoriteRankInfo(@RequestParam(name = "currentPage")String currentPageData){
+    public PageBean getFavoriteRankInfo(@RequestParam(name = "param")String param){
+//        if(currentPageData != null && currentPageData.length() > 0 && !"null".equals(currentPageData)){
+//            currentPage = Integer.parseInt(currentPageData);
+//        }else{
+//            currentPage = 1;
+//        }
+        Map<String, Object> map = JsonUtil.jsonToMap(param);
         Integer currentPage = 1;//当前页码，如果不传递，则默认为第一页
-        if(currentPageData != null && currentPageData.length() > 0 && !"null".equals(currentPageData)){
-            currentPage = Integer.parseInt(currentPageData);
-        }else{
-            currentPage = 1;
+        if(map.containsKey("currentPage")){
+            if(map.get("currentPage")!= null){
+                currentPage = (Integer)map.get("currentPage");
+            }
+            map.remove("currentPage");
         }
         Integer pageSize = 8;
-        PageBean pageBean = routeService.loadWithPage( currentPage, pageSize,"count");
+        PageBean pageBean = routeService.loadWithPage( currentPage, pageSize,map,"count");
         System.out.println(pageBean);
         return pageBean;
     }

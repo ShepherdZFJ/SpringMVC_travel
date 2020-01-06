@@ -5,6 +5,7 @@ import com.shepherd.springmvc_travel.service.IFavoriteService;
 import com.shepherd.springmvc_travel.service.IRouteImgService;
 import com.shepherd.springmvc_travel.service.IRouteService;
 import com.shepherd.springmvc_travel.service.ISellerService;
+import com.shepherd.springmvc_travel.util.JsonUtil;
 import com.shepherd.springmvc_travel.vo.RouteDetailVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/route")
@@ -42,21 +44,28 @@ public class RouteController {
 
     @RequestMapping("/getRouteInfo")
     @ResponseBody
-    public PageBean getRouteInfo(@RequestParam(name = "cid")String cidData, @RequestParam(name = "currentPage") String currentPageData,
-                                 @RequestParam(name = "rname")String rname){
-        Integer cid = 0;//类别id
-        //2.处理参数
-        if(cidData != null && cidData.length() > 0 && !"null".equals(cidData)){
-            cid = Integer.parseInt(cidData);
-        }
+    public PageBean getRouteInfo(@RequestParam(name="params")String params){
+//        Integer cid = 0;//类别id
+//        //2.处理参数
+//        if(cidData != null && cidData.length() > 0 && !"null".equals(cidData)){
+//            cid = Integer.parseInt(cidData);
+//        }
+//        Integer currentPage = 1;//当前页码，如果不传递，则默认为第一页
+//        if(currentPageData != null && currentPageData.length() > 0 && !"null".equals(currentPageData)){
+//            currentPage = Integer.parseInt(currentPageData);
+//        }else{
+//            currentPage = 1;
+//        }
+        Map<String, Object> map = JsonUtil.jsonToMap(params);
         Integer currentPage = 1;//当前页码，如果不传递，则默认为第一页
-        if(currentPageData != null && currentPageData.length() > 0 && !"null".equals(currentPageData)){
-            currentPage = Integer.parseInt(currentPageData);
-        }else{
-            currentPage = 1;
+        if(map.containsKey("currentPage")){
+            if(map.get("currentPage")!= null){
+                currentPage = (Integer)map.get("currentPage");
+            }
+            map.remove("currentPage");
         }
-        Integer pageSize = 5;
-        PageBean pageBean = routeService.loadWithPage(cid, currentPage, pageSize,rname,"");
+        Integer pageSize = 8;
+        PageBean pageBean = routeService.loadWithPage( currentPage, pageSize,map,"");
         System.out.println(pageBean);
         return pageBean;
     }

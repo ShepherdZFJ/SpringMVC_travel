@@ -5,17 +5,17 @@ import com.shepherd.springmvc_travel.domain.Route;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 
 public interface IRouteService<T> {
 
-    public PageBean<T> loadWithPage(Integer cid, Integer currentPage, Integer pageSize,String rname,String order);
-
-    public PageBean<T> loadWithPage(Integer currentPage, Integer pageSize,String rname,String order);
 
     public PageBean<T> loadWithPage(Integer currentPage, Integer pageSize,String order);
 
     public PageBean<T> loadWithPage(Integer currentPage, Integer pageSize,List<Integer>where);
+
+    public PageBean<T> loadWithPage(Integer currentPage, Integer pageSize, Map<String,Object> map, String order);
 
     public Route findRoute(Integer id);
 

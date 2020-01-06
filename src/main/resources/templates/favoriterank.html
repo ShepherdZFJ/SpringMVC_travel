@@ -18,21 +18,12 @@
 
             };
             function load(currentPage) {
-                // <li><a href="">首页</a></li>
-                //     <li class="threeword"><a href="#">上一页</a></li>
-                //     <li><a href="#">1</a></li>
-                //     <li><a href="#">2</a></li>
-                //     <li><a href="#">3</a></li>
-                //     <li><a href="#">4</a></li>
-                //     <li><a href="#">5</a></li>
-                //     <li><a href="#">6</a></li>
-                //     <li><a href="#">7</a></li>
-                //     <li><a href="#">8</a></li>
-                //     <li><a href="#">9</a></li>
-                //     <li><a href="#">10</a></li>
-                //     <li class="threeword"><a href="javascript:;">下一页</a></li>
-                //     <li class="threeword"><a href="javascript:;">末页</a></li>
-                $.get("/favorite/getFavoriteRankInfo",{currentPage:currentPage},function (pb) {
+
+                 var rname=$("#rname").val();
+                 var price_min = $("#price_min").val();
+                 var price_max = $("#price_max").val();
+                var data = {"currentPage":currentPage,"rname":rname,"price_min":price_min,"price_max":price_max};
+                $.get("/favorite/getFavoriteRankInfo",{param:JSON.stringify(data)},function (pb) {
                     $("#totalPage").html(pb.totalPage);
                     $("#totalCount").html(pb.totalCount);
                     var lis = "";
@@ -162,10 +153,10 @@
         <div class="contant">
             <div class="shaixuan">
                 <span>线路名称</span>
-                <input type="text">
+                <input id="rname" type="text">
                 <span>金额</span>
-                <input type="text">~<input type="text">
-                <button>搜索</button>
+                <input id ="price_min" type="text">~<input id ="price_max"type="text">
+                <button id="search_btn" onclick="javascipt:load(1)">搜索</button>
             </div>
             <div class="list clearfix">
                 <ul id="route">
