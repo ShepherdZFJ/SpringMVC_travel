@@ -34,11 +34,15 @@ public class RouteServiceImpl implements IRouteService {
                 for(Map.Entry<String, Object> entry : m.entrySet()){
                     String mapKey = entry.getKey();
                     Object mapValue = entry.getValue();
+                    if(mapValue.equals("null")) continue;
                     if(mapKey == "rname" && !StringUtils.isEmpty(mapValue)){
                         predicates.add(cb.like(root.get(mapKey).as(String.class), "%"+mapValue+"%"));
                     }
                     if(mapKey == "cid" && !StringUtils.isEmpty(mapValue)){
-                        predicates.add(cb.equal(root.get("cid"), mapValue));
+                        if(! "index".equals(mapValue) && ! "rank".equals(mapKey)){
+                            predicates.add(cb.equal(root.get("cid"), mapValue));
+                        }
+
                     }
                     if(mapKey == "price_min" && !StringUtils.isEmpty(mapValue)){
                         predicates.add(cb.ge(root.get("price"), Double.parseDouble((String) mapValue)));
