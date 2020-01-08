@@ -34,7 +34,7 @@ public class RouteServiceImpl implements IRouteService {
                 for(Map.Entry<String, Object> entry : m.entrySet()){
                     String mapKey = entry.getKey();
                     Object mapValue = entry.getValue();
-                    if(mapValue.equals("null")) continue;
+                    if("null".equals(mapValue)) continue;
                     if(mapKey == "rname" && !StringUtils.isEmpty(mapValue)){
                         predicates.add(cb.like(root.get(mapKey).as(String.class), "%"+mapValue+"%"));
                     }
