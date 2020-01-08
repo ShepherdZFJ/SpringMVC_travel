@@ -77,7 +77,7 @@
         });
 
     });
-    function fun() {
+    function fun_myFavorite() {
         $.get("/user/findOne",{},function (flag) {
             if(flag) {
                 //用户已经登录
@@ -107,7 +107,7 @@
             <div class="login"  >
             	
                 <span id="span_username"></span>
-                <a onclick="fun()" class="collection" style="cursor:pointer">我的收藏</a>
+                <a onclick="fun_myFavorite()" class="collection" style="cursor:pointer">我的收藏</a>
                 <a href="javascript:location.href='/user/exit';">退出</a>
             </div>
         </div>
