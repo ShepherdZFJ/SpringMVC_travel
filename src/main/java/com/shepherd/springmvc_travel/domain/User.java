@@ -1,6 +1,11 @@
 package com.shepherd.springmvc_travel.domain;
 
+import com.shepherd.springmvc_travel.domain.commom.BaseEntity;
 import lombok.Data;
+import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -8,9 +13,10 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "tab_user")
 @Data
-public class User implements Serializable {
+public class User extends BaseEntity implements  Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

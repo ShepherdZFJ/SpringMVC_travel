@@ -1,13 +1,15 @@
 package com.shepherd.springmvc_travel.domain;
 
+import com.shepherd.springmvc_travel.domain.commom.BaseEntity;
 import lombok.Data;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.io.Serializable;
 @Data
 @Entity
 @Table(name = "tab_route")
-public class Route implements Serializable {
+public class Route extends BaseEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
