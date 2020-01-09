@@ -101,7 +101,8 @@ public class RouteServiceImpl implements IRouteService {
             }
         };
         PageBean<Route> pb = new PageBean<Route>();
-        Pageable pageable = PageRequest.of(currentPage-1,pageSize);
+        Sort sort = Sort.by(Sort.Direction.DESC,"updateTime");
+        Pageable pageable = PageRequest.of(currentPage-1,pageSize,sort);
         Page<Route> page = routeDao.findAll(spec,pageable);
         pb.setTotalCount(page.getTotalElements());
         pb.setTotalPage(page.getTotalPages());
