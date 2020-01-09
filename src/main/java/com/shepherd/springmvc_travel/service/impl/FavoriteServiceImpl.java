@@ -6,6 +6,7 @@ import com.shepherd.springmvc_travel.domain.Route;
 import com.shepherd.springmvc_travel.service.IFavoriteService;
 import com.shepherd.springmvc_travel.service.IRouteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -41,6 +42,7 @@ public class FavoriteServiceImpl implements IFavoriteService {
 
     @Override
     public List<Favorite> findAll(Integer uid) {
-        return favoriteDao.findAllByUid(uid);
+        //Sort sort = Sort.by(Sort.Direction.DESC,"date");
+        return favoriteDao.findAllByUidOrderByDateDesc(uid);
     }
 }
