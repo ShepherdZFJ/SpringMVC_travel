@@ -48,4 +48,7 @@ public class Route extends BaseEntity implements Serializable {
 
     @Column(name = "sourceId")
     private String sourceId;
+
+    @Column(name = "stock")
+    private Integer stock;
 }

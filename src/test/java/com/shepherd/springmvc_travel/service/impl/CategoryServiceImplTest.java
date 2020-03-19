@@ -24,4 +24,8 @@ public class CategoryServiceImplTest {
         System.out.println(all);
 
     }
+
+    @Test
+    public void findAll1() {
+    }
 }

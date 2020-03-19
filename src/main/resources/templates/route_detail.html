@@ -72,8 +72,11 @@
                     <p >地址 ： <span id="address">传智播客黑马程序员</span></p>
                 </div>
                 <div class="pros_price">
-                    <p class="price"><strong id="price">¥2699.00</strong><span>起</span></p>
+                    <p class="price"><strong id="price">¥2699.00</strong><span>起</span>
+
+                    </p>
                     <p class="collect">
+                        <a class="btn" id="addCart" onclick="addCart();">加入购物车</a>
                         <a class="btn" id="favorite" onclick="addFavorite();"><i class="glyphicon glyphicon-heart-empty"></i>点击收藏</a>
 
                        <!-- <a  class="btn already" disabled="disabled"><i class="glyphicon glyphicon-heart-empty"></i>点击收藏</a>-->
@@ -309,6 +312,27 @@
                alert("您尚未登录，请登录");
                location.href="http://localhost:8080/user/getLoginList";
            }
+        })
+    }
+    //点击添加购物车按钮触发的方法
+    function addCart(){
+        var rid = getParameter("rid");
+        //1. 判断用户是否登录
+        $.get("/user/findOne",{},function (user) {
+            if(user){
+                //用户登录了
+                //添加功能
+                $.get("/cart/addCart",{rid:rid},function () {
+
+                    //代码刷新页面
+                   // location.reload();
+                });
+
+            }else{
+                //用户没有登录
+                alert("您尚未登录，请登录");
+                location.href="http://localhost:8080/user/getLoginList";
+            }
         })
     }
 
